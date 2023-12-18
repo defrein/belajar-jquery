@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Contoh AJAX dengan jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#loadDataBtn').click(function() {
+                $.ajax({
+                    url: 'https://dummyjson.com/products',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        var products = response.products;
+                        var output = '<ul>';
+                        for (var i = 0; i < products.length; i++) {
+                            output += '<li>' + products[i].id + ': ' + products[i].title + ' - $' + products[i].price + '</li>';
+                        }
+                        output += '</ul>';
+                        $('#data').html(output);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(status + ": " + error);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <button id="loadDataBtn">Muat Data</button>
+    <div id="data"></div>
+</body>
+
+</html>
