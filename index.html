@@ -114,7 +114,7 @@
                 output += `
                 <td> ${thumb}</td>
                 
-                <td> <a class="product-title" data-value="${i}" href="" data-bs-toggle="modal" data-bs-target="#detailModal"> ${products[i].title} </a></td>
+                <td> <a class="product-title" data-value="${products[i].id}" href="" data-bs-toggle="modal" data-bs-target="#detailModal"> ${products[i].title} </a></td>
 
                 <td> ${products[i].description}</td>
                 <td> $${products[i].price}</td>
@@ -130,11 +130,33 @@
                 data_value = $(this).data("value")
                 showDetailProducts(data_value, products)
             });
+        }
 
-
+        function sendDataToURL(id) {
+            id_product = id;
+            $.ajax({
+                url: `https://dummyjson.com/products/${id_product}`,
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                    id: 2
+                }),
+                contentType: 'application/json',
+                success: function(response) {
+                    console.log(response)
+                },
+                error: function(xhr, status, error) {
+                    console.error(status + ": " + error);
+                }
+            });
         }
 
         function showDetailProducts(id_product, products) {
+            sendDataToURL(id_product)
+
+        }
+
+        function __showDetailProducts(id_product, products) {
             let index = id_product - 1;
             detail_modal = $('#detailModal').find('.modal-body')
             detail_modal.html('')
@@ -186,7 +208,7 @@
             detail_modal.append(detail_content)
         }
 
-        function showDetailProducts(index, products) {
+        function _showDetailProducts(index, products) {
             for (let i = 0; i < products.length; i++) {
                 let all_images = products[index].images
 
@@ -255,14 +277,6 @@
             }
 
         }
-
-
-
-
-
-
-
-        // tampilkan berdasarkan id nya
     </script>
 </body>
 
