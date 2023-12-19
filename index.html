@@ -50,13 +50,9 @@
         <h4>Please wait...</h4>
     </div>
     <div class="container">
-        <!-- Button trigger modal -->
-        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-        </button> -->
 
         <!-- Modal -->
-        <div class="modal modal-lg fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal modal-xl fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -107,8 +103,6 @@
                 }
             });
         }
-
-        let id_product;
 
         function displayProducts(products) {
             bodyTable = $('#body-table');
@@ -205,13 +199,10 @@
 
                     for (let j = 0; j < all_images.length; j++) {
                         detail_content += `<div class="col">
-                                <img class="img-product" src="${products[index].images[j]}">
+                                <img class="img-product m-1" src="${products[index].images[j]}">
                                 </div>
                         `
                     }
-
-
-
                     detail_content +=
                         `
                     </div>
