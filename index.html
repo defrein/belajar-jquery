@@ -126,97 +126,102 @@
 
             let title = $('.product-title')
             title.click(function(element) {
-                // console.log($(this).data("value"))
                 data_value = $(this).data("value")
-                showDetailProducts(data_value, products)
+                sendDataToURL(data_value)
             });
         }
 
         function sendDataToURL(id) {
-            id_product = id;
             $.ajax({
-                url: `https://dummyjson.com/products/${id_product}`,
-                type: 'POST',
+                url: `https://dummyjson.com/products/${id}`,
+                type: 'GET',
                 dataType: 'json',
-                data: JSON.stringify({
-                    id: 2
-                }),
-                contentType: 'application/json',
+                // data: {
+                //     "id": 12
+                // },
                 success: function(response) {
                     console.log(response)
+                    showDetailProducts(response)
+
                 },
                 error: function(xhr, status, error) {
-                    console.error(status + ": " + error);
+                    console.error(status, error);
                 }
             });
         }
 
-        function showDetailProducts(id_product, products) {
-            sendDataToURL(id_product)
-
-        }
-
-
-        function __showDetailProducts(id_product, products) {
-            let index = id_product - 1;
-            detail_modal = $('#detailModal').find('.modal-body')
+        function showDetailProducts(response) {
+            let single_product = response
+            let all_images = single_product.images
+            let detail_modal = $('#detailModal').find('.modal-body')
             detail_modal.html('')
             detail_content = `
-                <table>
-                    <tr>
-                        <td>Title</td>
-                        <td>:</td>
-                        <td>${products[index].title}</td>
-                    </tr>
-                    <tr>
-                        <td>Brand</td>
-                        <td>:</td>
-                        <td>${products[index].brand}</td>
-                    </tr>
-                    <tr>
-                        <td>Description</td>
-                        <td>:</td>
-                        <td>${products[index].description}</td>
-                    </tr>
-                    <tr>
-                        <td>Price</td>
-                        <td>:</td>
-                        <td>$${products[index].price}</td>
-                    </tr>
-                    <tr>
-                        <td>Discount</td>
-                        <td>:</td>
-                        <td>${products[index].discountPercentage}%</td>
-                    </tr>
-                    <tr>
-                        <td>Stock</td>
-                        <td>:</td>
-                        <td>${products[index].stock}</td>
-                    </tr>
-                    <tr>
-                        <td>Rating</td>
-                        <td>:</td>
-                        <td>${products[index].rating}/5</td>
-                    </tr>
-                    <tr>
-                        <td>Category</td>
-                        <td>:</td>
-                        <td>${products[index].category}</td>
-                    </tr>
-                </table>
-            `
+                    <div class="container">
+                        <div class="row">`
+
+            for (let j = 0; j < all_images.length; j++) {
+                detail_content += `<div class="col">
+                                <img class="img-product m-1" src="${single_product.images[j]}">
+                                </div>
+                        `
+            }
+            detail_content +=
+                `
+                    </div>
+                        <table>
+                            <tr>
+                                <td>Title</td>
+                                <td>:</td>
+                                <td>${single_product.title}</td>
+                            </tr>
+                            <tr>
+                                <td>Brand</td>
+                                <td>:</td>
+                                <td>${single_product.brand}</td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>:</td>
+                                <td>${single_product.description}</td>
+                            </tr>
+                            <tr>
+                                <td>Price</td>
+                                <td>:</td>
+                                <td>$${single_product.price}</td>
+                            </tr>
+                            <tr>
+                                <td>Discount</td>
+                                <td>:</td>
+                                <td>${single_product.discountPercentage}%</td>
+                            </tr>
+                            <tr>
+                                <td>Stock</td>
+                                <td>:</td>
+                                <td>${single_product.stock}</td>
+                            </tr>
+                            <tr>
+                                <td>Rating</td>
+                                <td>:</td>
+                                <td>${single_product.rating}/5</td>
+                            </tr>
+                            <tr>
+                                <td>Category</td>
+                                <td>:</td>
+                                <td>${single_product.category}</td>
+                            </tr>
+                        </table>
+                        `
 
             detail_modal.append(detail_content)
-        }
-
-
-        function _showDetailProducts(index, products) {
 
         }
+
+
+
         // TODO :
         // JADIKAN SUPAYA POST
 
-        function showDetailProducts(index, products) {
+        function __showDetailProducts(index, products) {
             for (let i = 0; i < products.length; i++) {
                 let all_images = products[index].images
 
