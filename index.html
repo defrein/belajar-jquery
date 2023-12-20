@@ -156,6 +156,7 @@
 
         }
 
+
         function __showDetailProducts(id_product, products) {
             let index = id_product - 1;
             detail_modal = $('#detailModal').find('.modal-body')
@@ -208,7 +209,14 @@
             detail_modal.append(detail_content)
         }
 
+
         function _showDetailProducts(index, products) {
+
+        }
+        // TODO :
+        // JADIKAN SUPAYA POST
+
+        function showDetailProducts(index, products) {
             for (let i = 0; i < products.length; i++) {
                 let all_images = products[index].images
 
